@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>チーム相互理解シート — 前田・山下</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #1A3D2B;
+  --green-mid: #2D6A4F;
+  --green-light: #95C46E;
+  --green-pale: #E8F5E0;
+  --purple: #534AB7;
+  --purple-light: #EEEDFE;
+  --purple-pale: #F5F4FF;
+  --gray-900: #1a1a18;
+  --gray-700: #3d3d3a;
+  --gray-500: #73726c;
+  --gray-300: #c2c0b6;
+  --gray-100: #f4f3ee;
+  --gray-50: #faf9f5;
+  --red-light: #FCEBEB;
+  --red: #A32D2D;
+  --border: rgba(0,0,0,0.08);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-900);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--green);
+  color: white;
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(149,196,110,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(83,74,183,0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  margin-bottom: 12px;
+  font-family: 'DM Sans', sans-serif;
+}
+.hero h1 {
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.hero p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+.hero-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 8px;
+}
+.hero-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  border: 3px solid var(--green);
+}
+.hero-avatar.m { background: var(--green-pale); color: var(--green); }
+.hero-avatar.y { background: var(--purple-light); color: var(--purple); margin-left: -12px; }
+.hero-names {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 8px;
+}
+
+/* ── NAV ── */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 0 16px;
+}
+.nav {
+  display: flex;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  border: none;
+  background: none;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.nav-btn:hover { color: var(--gray-900); }
+.nav-btn.active { color: var(--green-mid); border-bottom-color: var(--green-mid); font-weight: 500; }
+
+/* ── LAYOUT ── */
+.content { max-width: 720px; margin: 0 auto; padding: 32px 16px 80px; }
+.tab { display: none; }
+.tab.active { display: block; }
+
+/* ── CARDS ── */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-m { background: var(--green-mid); }
+.dot-y { background: var(--purple); }
+
+/* ── PROFILE GRID ── */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+@media(max-width:520px) { .profile-grid { grid-template-columns: 1fr; } }
+
+.profile-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.profile-card.m { border-top: 3px solid var(--green-mid); }
+.profile-card.y { border-top: 3px solid var(--purple); }
+.avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; margin-bottom: 12px;
+}
+.av-m { background: var(--green-pale); color: var(--green-mid); }
+.av-y { background: var(--purple-light); color: var(--purple); }
+.profile-name { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.profile-role { font-size: 12px; color: var(--gray-500); margin-bottom: 12px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.tag {
+  font-size: 11px; padding: 3px 9px; border-radius: 20px; font-weight: 500;
+}
+.tag-g { background: var(--green-pale); color: var(--green-mid); }
+.tag-p { background: var(--purple-light); color: var(--purple); }
+.traits { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.traits li {
+  font-size: 13px; color: var(--gray-700); padding-left: 14px;
+  position: relative; line-height: 1.5;
+}
+.traits li::before { content: "·"; position: absolute; left: 0; color: var(--gray-300); }
+
+/* ── SCORE BARS ── */
+.avg-note {
+  background: var(--gray-100); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-size: 12px; color: var(--gray-700);
+  margin-bottom: 16px; line-height: 1.6;
+}
+.avg-note strong { color: var(--gray-900); }
+
+.score-legend {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--gray-500); }
+.ld { width: 10px; height: 10px; border-radius: 50%; }
+.ld-m { background: var(--green-mid); }
+.ld-y { background: var(--purple); }
+.avg-dash { width: 18px; height: 0; border-top: 2px dashed var(--gray-300); }
+
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.bar-label { font-size: 12px; color: var(--gray-700); width: 106px; flex-shrink: 0; line-height: 1.3; }
+.bar-tracks { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.bar-track { position: relative; height: 20px; }
+.bar-bg { position: absolute; top: 50%; transform: translateY(-50%); left: 0; right: 0; height: 6px; background: var(--gray-100); border-radius: 3px; }
+.bar-fill { position: absolute; top: 50%; transform: translateY(-50%); height: 6px; border-radius: 3px; transition: width .7s ease; }
+.bf-m { background: var(--green-mid); }
+.bf-y { background: var(--purple); }
+.avg-line { position: absolute; top: 3px; bottom: 3px; width: 1.5px; background: var(--gray-300); }
+.score-vals { display: flex; flex-direction: column; gap: 3px; width: 32px; flex-shrink: 0; }
+.sval {
+  font-size: 12px; font-weight: 500; text-align: center;
+  padding: 2px 4px; border-radius: 4px; line-height: 16px;
+}
+.sval-high-m { background: var(--green-pale); color: var(--green); }
+.sval-high-y { background: var(--purple-light); color: var(--purple); }
+.sval-avg { background: var(--gray-100); color: var(--gray-500); }
+.sval-low { background: var(--red-light); color: var(--red); }
+
+/* ── COMM ── */
+.do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+@media(max-width:480px) { .do-dont { grid-template-columns: 1fr; } }
+.do-box, .dont-box { padding: 12px 14px; border-radius: var(--radius-sm); }
+.do-box { background: var(--green-pale); }
+.dont-box { background: var(--red-light); }
+.do-box .dlabel { font-size: 12px; font-weight: 700; color: var(--green-mid); margin-bottom: 7px; }
+.dont-box .dlabel { font-size: 12px; font-weight: 700; color: var(--red); margin-bottom: 7px; }
+.do-box ul, .dont-box ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.do-box li, .dont-box li { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+.do-box li::before { content: "○ "; }
+.dont-box li::before { content: "× "; }
+
+.insight-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.insight-list li {
+  font-size: 13px; color: var(--gray-700); padding: 10px 14px;
+  background: var(--gray-100); border-radius: var(--radius-sm); line-height: 1.6;
+}
+.insight-list li strong { color: var(--gray-900); font-weight: 700; }
+
+/* ── COMPAT ── */
+.axis-legend { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+.axis-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.axis-label { font-size: 12px; color: var(--gray-500); width: 116px; flex-shrink: 0; }
+.axis-bar { flex: 1; height: 8px; background: var(--gray-100); border-radius: 4px; position: relative; }
+.axis-dot {
+  position: absolute; top: -3px; width: 14px; height: 14px;
+  border-radius: 50%; transform: translateX(-50%); border: 2px solid white;
+}
+.axis-dot-m { background: var(--green-mid); }
+.axis-dot-y { background: var(--purple); }
+
+/* ── SHARE ── */
+.share-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px; margin-bottom: 16px;
+}
+.share-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--gray-900); }
+.share-card .sub { font-size: 12px; color: var(--gray-500); margin-bottom: 12px; }
+.msg-box {
+  background: var(--gray-100); border-radius: var(--radius-sm);
+  padding: 14px; font-size: 13px; color: var(--gray-700);
+  line-height: 1.8; white-space: pre-wrap; word-break: break-all;
+  margin-bottom: 10px;
+}
+.copy-btn {
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: white; color: var(--gray-700);
+  font-size: 13px; font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer; transition: all .15s;
+}
+.copy-btn:hover { background: var(--gray-100); }
+.copy-btn.copied { color: var(--green-mid); border-color: var(--green-mid); }
+
+/* ── SECTION HEADING ── */
+.sec-heading {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  color: var(--gray-500); text-transform: uppercase;
+  margin: 24px 0 12px;
+  font-family: 'DM Sans', sans-serif;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Azitas — Team Profile</div>
+  <h1>チーム相互理解シート</h1>
+  <p>お互いのひととなりと仕事スタイルを知ることで、<br>もっといいチームになるために。</p>
+  <div class="hero-avatars">
+    <div class="hero-avatar m">前</div>
+    <div class="hero-avatar y">山</div>
+  </div>
+  <div class="hero-names">前田 直也 &nbsp;×&nbsp; 山下 航希</div>
+</div>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchTab('profile',this)">プロフィール</button>
+    <button class="nav-btn" onclick="switchTab('style',this)">仕事スタイル</button>
+    <button class="nav-btn" onclick="switchTab('comm',this)">コミュニケーション</button>
+    <button class="nav-btn" onclick="switchTab('compat',this)">相性と補完</button>
+    <button class="nav-btn" onclick="switchTab('share',this)">📤 展開文</button>
+  </nav>
+</div>
+
+<div class="content">
+
+  <!-- ─── PROFILE ─── -->
+  <div class="tab active" id="tab-profile">
+    <div class="profile-grid">
+      <div class="profile-card m">
+        <div class="avatar av-m">前</div>
+        <div class="profile-name">前田 直也</div>
+        <div class="profile-role">Bスタイル：Liberalist系 ／ サル（進んで関わる）</div>
+        <div class="tags">
+          <span class="tag tag-g">越境型</span>
+          <span class="tag tag-g">感情ドリブン</span>
+          <span class="tag tag-g">ムードメーカー</span>
+        </div>
+        <ul class="traits">
+          <li>枠にとらわれず、目の前から新しい価値を見出す</li>
+          <li>複数の仕事を並行するとパフォーマンスが上がる</li>
+          <li>「答えのない問い」へのエネルギーが大きい</li>
+          <li>仲間と一緒に盛り上がることがエネルギー源</li>
+          <li>記憶・細部の管理は苦手。思いつきを大事にしたい</li>
+          <li>承認欲求あり。嫌われることへの怖さを自覚している</li>
+        </ul>
+      </div>
+      <div class="profile-card y">
+        <div class="avatar av-y">山</div>
+        <div class="profile-name">山下 航希</div>
+        <div class="profile-role">Eスタイル：Neutralist系 ／ サル（進んで関わる）</div>
+        <div class="tags">
+          <span class="tag tag-p">橋渡し型</span>
+          <span class="tag tag-p">多様な視点</span>
+          <span class="tag tag-p">タフネス</span>
+        </div>
+        <ul class="traits">
+          <li>多様な見方を受け入れ、異なる立場の人の架け橋になる</li>
+          <li>新しいチャレンジに負担を感じにくく、楽しもうとする</li>
+          <li>「なぜそうするか」を丁寧に相手に伝えようとする</li>
+          <li>相手の反応に臆せず、やるべきことに踏み込む</li>
+          <li>やりがい・スリルへの動機が突出して高い（40%）</li>
+          <li>規律ある行動・計画実行も得意な安定性を持つ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-heading">仕事の動機（何が原動力か）</div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--green-mid);margin-bottom:10px">前田 直也</div>
+          <div id="motiv-m"></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:10px">山下 航希</div>
+          <div id="motiv-y"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STYLE ─── -->
+  <div class="tab" id="tab-style">
+    <div class="avg-note">
+      📊 スコアは<strong>偏差値（全受検者平均＝50）</strong>です。<strong>60以上＝平均より高い</strong>（上位16%）、<strong>44以下＝平均より低め</strong>（下位16%）。高い＝いい・低い＝悪いではなく、その人の特性の傾向を示しています。破線が平均（50）の位置です。
+    </div>
+    <div class="score-legend">
+      <div class="legend-item"><span class="ld ld-m"></span>前田</div>
+      <div class="legend-item"><span class="ld ld-y"></span>山下</div>
+      <div class="legend-item"><span class="avg-dash"></span><span>平均（50）</span></div>
+    </div>
+
+    <div class="sec-heading">ビジネスポテンシャル</div>
+    <div class="card"><div id="bp-bars"></div></div>
+
+    <div class="sec-heading">コミュニケーション力</div>
+    <div class="card"><div id="cm-bars"></div></div>
+
+    <div class="sec-heading">継続力・粘り強さ</div>
+    <div class="card"><div id="ct-bars"></div></div>
+
+    <div class="sec-heading">基本特性（性格）</div>
+    <div class="card"><div id="pe-bars"></div></div>
+  </div>
+
+  <!-- ─── COMM ─── -->
+  <div class="tab" id="tab-comm">
+    <div class="card">
+      <div class="card-title"><span class="dot dot-m"></span>前田 直也 とのコミュニケーション</div>
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="dlabel">効果的なアプローチ</div>
+          <ul>
+            <li>「一緒にやろう」と巻き込む</li>
+            <li>まず感情・熱量で共感してから話す</li>
+            <li>思いつきや直感を否定せず拾い上げる</li>
+            <li>ざっくりした方向性を先に示す</li>
+            <li>承認をさりげなく織り交ぜる</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="dlabel">避けたほうがいいこと</div>
+          <ul>
+            <li>細部の詰めを最初から求めすぎる</li>
+            <li>頭ごなしに否定・批判する</li>
+            <li>一方的に指示するだけ</li>
+            <li>バズワードで議論を終わらせる</li>
+            <li>波が引いているときに無理に動かす</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-y"></span>山下 航希 とのコミュニケーション</div>
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="dlabel">効果的なアプローチ</div>
+          <ul>
+            <li>「なぜそうするか」を丁寧に伝える</li>
+            <li>新しい挑戦・試み系の話をぶつける</li>
+            <li>異なる立場の調整役として頼む</li>
+            <li>やりがい・スリル感を一緒に描く</li>
+            <li>具体的な課題感を共有して巻き込む</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="dlabel">避けたほうがいいこと</div>
+          <ul>
+            <li>感情的・曖昧なまま詰め寄る</li>
+            <li>意見を言わせず決定事項を押しつける</li>
+            <li>細かいルールで縛りすぎる</li>
+            <li>「熱量だけ」で動かそうとする</li>
+            <li>説明なくタスクを渡す</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">二人のあいだでの対話のコツ</div>
+      <ul class="insight-list">
+        <li><strong>前田 → 山下へ：</strong>感覚・熱量で語った後、「なぜこれをやりたいか」を一言添えると届きやすい。山下は背景理解を重視する。</li>
+        <li><strong>山下 → 前田へ：</strong>論理よりも共感から入るのが近道。まず「それ面白いね」と受け止めてから提案するとスムーズ。</li>
+        <li><strong>意見が割れたとき：</strong>山下が事実ベースで論点を整理し、前田が現場感・人の気持ちを補う役割分担が自然に機能しやすい。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── COMPAT ─── -->
+  <div class="tab" id="tab-compat">
+    <div class="card">
+      <div class="card-title">特性の軸で見る二人の位置</div>
+      <div class="axis-legend">
+        <div class="legend-item"><span class="ld ld-m"></span>前田</div>
+        <div class="legend-item"><span class="ld ld-y"></span>山下</div>
+      </div>
+      <div class="axis-row"><span class="axis-label">直感 ↔ 論理</span><div class="axis-bar"><div class="axis-dot axis-dot-m" style="left:25%"></div><div class="axis-dot axis-dot-y" style="left:60%"></div></div></div>
+      <div class="axis-row"><span class="axis-label">感情 ↔ 構造</span><div class="axis-bar"><div class="axis-dot axis-dot-m" style="left:28%"></div><div class="axis-dot axis-dot-y" style="left:58%"></div></div></div>
+      <div class="axis-row"><span class="axis-label">発散 ↔ 収束</span><div class="axis-bar"><div class="axis-dot axis-dot-m" style="left:20%"></div><div class="axis-dot axis-dot-y" style="left:55%"></div></div></div>
+      <div class="axis-row"><span class="axis-label">熱量 ↔ 安定</span><div class="axis-bar"><div class="axis-dot axis-dot-m" style="left:30%"></div><div class="axis-dot axis-dot-y" style="left:62%"></div></div></div>
+      <div class="axis-row"><span class="axis-label">越境 ↔ 専門深化</span><div class="axis-bar"><div class="axis-dot axis-dot-m" style="left:18%"></div><div class="axis-dot axis-dot-y" style="left:52%"></div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">補完関係と相性の示唆</div>
+      <ul class="insight-list">
+        <li><strong>最強の補完：</strong>前田の「発想と熱量」×山下の「構造化と説得力」。前田がアイデアを出し、山下が論点整理して関係者に届ける分業が自然に機能する。</li>
+        <li><strong>共通の強み：</strong>二人とも「サル（進んで関わる）」タイプ。方向性が一致したときの推進力は非常に大きい。</li>
+        <li><strong>温度差に注意：</strong>長期プロジェクトで前田の熱量が落ちてきたとき、山下が走り続けているとギャップになりやすい。定期的な「なぜやるか」の対話が有効。</li>
+        <li><strong>衝突が起きやすい場面：</strong>前田が直感で動こうとするとき、山下が「理由がわからない」とブレーキになることがある。前田が意図を一言添える習慣が衝突を減らす。</li>
+        <li><strong>二人でやると最強：</strong>クライアントへの提案・合意形成。前田が熱量と現場感で信頼を作り、山下が論理と多角的視点で納得感を補強する。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── SHARE ─── -->
+  <div class="tab" id="tab-share">
+    <div style="background:var(--green-pale);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;font-size:13px;color:var(--green);line-height:1.7">
+      このページのURLをそのまま共有してください。メンバーはブラウザで開くだけで全内容を確認できます。<br>
+      以下の文章はSlack・メール等への案内文としてコピーしてお使いください。
+    </div>
+
+    <div class="share-card">
+      <h4>Slack 展開文（チーム向け）</h4>
+      <div class="sub">そのままコピーして貼り付けてください</div>
+      <div class="msg-box" id="msg-slack">こんにちは！チームの相互理解を深めるために、前田と山下の適性検査の結果をまとめたページを作りました。
+
+お互いのひととなり、仕事スタイル、コミュニケーションの取り方のコツをまとめています。
+
+「こういう人なんだ」という発見のきっかけにしてもらえると嬉しいです。
+特に「コミュニケーション」タブが話のタネになると思うので、ぜひ見てみてください。
+
+気づきや感想があればぜひ教えてください！</div>
+      <button class="copy-btn" onclick="copyText('msg-slack',this)">コピー</button>
+    </div>
+
+    <div class="share-card">
+      <h4>1on1・MTG での活用コメント</h4>
+      <div class="sub">「相性と補完」タブを開きながら話すと効果的です</div>
+      <div class="msg-box" id="msg-1on1">この結果を見て、お互いに「確かにそうだな」と思う部分はありますか？
+
+特に気になったのは…（←自分の感想を一言入れてみてください）
+
+「コミュニケーションのコツ」のページ、相手への接し方で気をつけようと思ったのが…
+（←具体的なエピソードを添えると話が広がります）
+
+逆に「こうしてもらえると助かる」という話もぜひ聞かせてください。</div>
+      <button class="copy-btn" onclick="copyText('msg-1on1',this)">コピー</button>
+    </div>
+
+    <div class="share-card">
+      <h4>スコアの読み方ガイド</h4>
+      <div class="sub">チームメンバーへの補足説明として使えます</div>
+      <div class="msg-box" id="msg-guide">【スコアの読み方】
+このページのスコアは「偏差値」です。
+
+  50 ＝ 全受検者の平均
+  60以上 ＝ 平均より明らかに高い（上位16%）
+  44以下 ＝ 平均より低め（下位16%）
+
+高ければいい・低ければ悪いということではありません。
+「その人の特性がどこにあるか」を示しています。
+
+たとえば「不快から逃げない力」が低い人は、摩擦を避ける傾向があるかもしれない。
+でもそれは「調和を大切にしている」という強みの裏返しでもあります。
+
+得意・不得意ではなく、「この人はこういう動き方をする人なんだ」という
+理解のきっかけにしてください。</div>
+      <button class="copy-btn" onclick="copyText('msg-guide',this)">コピー</button>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function copyText(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピーしました ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+const AVG = 50, MAX = 80;
+const scoreData = {
+  bp: [
+    {label:'事業構築', m:58, y:65},
+    {label:'運営・マネジメント', m:54, y:60},
+    {label:'実行・遂行', m:55, y:53},
+    {label:'営業職適性', m:71, y:64},
+    {label:'企画職適性', m:59, y:71},
+  ],
+  cm: [
+    {label:'気持ちを察する', m:62, y:63},
+    {label:'意図を的確に伝える', m:52, y:68},
+    {label:'関わりを広げる', m:63, y:53},
+    {label:'深い関係を築く', m:41, y:50},
+  ],
+  ct: [
+    {label:'目的観を深める', m:53, y:62},
+    {label:'忘れずに抱き続ける', m:34, y:45},
+    {label:'自分を奮い立たせる', m:49, y:58},
+    {label:'気持ちを切り替える', m:40, y:53},
+    {label:'不快から逃げない', m:45, y:53},
+  ],
+  pe: [
+    {label:'主体性', m:66, y:66},
+    {label:'向上心', m:50, y:60},
+    {label:'積極性', m:31, y:48},
+    {label:'明朗性', m:62, y:57},
+    {label:'柔軟性', m:61, y:55},
+    {label:'責任感', m:53, y:60},
+  ]
+};
+
+function badgeClass(v, isMaeda) {
+  if (v >= 60) return isMaeda ? 'sval-high-m' : 'sval-high-y';
+  if (v <= 44) return 'sval-low';
+  return 'sval-avg';
+}
+
+function renderBars(id, items) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const avgPct = (AVG / MAX) * 100;
+  el.innerHTML = items.map(item => {
+    const mPct = (item.m / MAX) * 100;
+    const yPct = (item.y / MAX) * 100;
+    return `<div class="bar-row">
+      <span class="bar-label">${item.label}</span>
+      <div class="bar-tracks">
+        <div class="bar-track">
+          <div class="bar-bg"></div>
+          <div class="bar-fill bf-m" style="width:${mPct}%"></div>
+          <div class="avg-line" style="left:${avgPct}%"></div>
+        </div>
+        <div class="bar-track">
+          <div class="bar-bg"></div>
+          <div class="bar-fill bf-y" style="width:${yPct}%"></div>
+          <div class="avg-line" style="left:${avgPct}%"></div>
+        </div>
+      </div>
+      <div class="score-vals">
+        <span class="sval ${badgeClass(item.m,true)}">${item.m}</span>
+        <span class="sval ${badgeClass(item.y,false)}">${item.y}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+renderBars('bp-bars', scoreData.bp);
+renderBars('cm-bars', scoreData.cm);
+renderBars('ct-bars', scoreData.ct);
+renderBars('pe-bars', scoreData.pe);
+
+// Motiv bars
+const motivM = [{label:'能力発揮', v:32},{label:'やりがい', v:23},{label:'顧客評価', v:23},{label:'社外認知', v:10},{label:'収入', v:7},{label:'出世', v:5}];
+const motivY = [{label:'やりがい', v:40},{label:'顧客評価', v:24},{label:'社外認知', v:15},{label:'能力発揮', v:12},{label:'出世', v:5},{label:'収入', v:4}];
+
+function renderMotiv(id, items, color) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = items.map(item => `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+      <span style="font-size:12px;color:var(--gray-500);width:68px;flex-shrink:0">${item.label}</span>
+      <div style="flex:1;height:6px;background:var(--gray-100);border-radius:3px;overflow:hidden">
+        <div style="height:6px;border-radius:3px;background:${color};width:${item.v}%"></div>
+      </div>
+      <span style="font-size:12px;font-weight:500;color:var(--gray-700);width:28px;text-align:right">${item.v}%</span>
+    </div>`).join('');
+}
+renderMotiv('motiv-m', motivM, 'var(--green-mid)');
+renderMotiv('motiv-y', motivY, 'var(--purple)');
+</script>
+</body>
+</html>
