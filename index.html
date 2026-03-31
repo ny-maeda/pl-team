@@ -321,6 +321,7 @@ body {
     <button class="nav-btn" onclick="switchTab('comm',this)">コミュニケーション</button>
     <button class="nav-btn" onclick="switchTab('compat',this)">相性と補完</button>
     <button class="nav-btn" onclick="switchTab('share',this)">📤 展開文</button>
+    <button class="nav-btn" onclick="switchTab('github',this)">📘 GitHubって何？</button>
   </nav>
 </div>
 
@@ -552,6 +553,96 @@ body {
 理解のきっかけにしてください。</div>
       <button class="copy-btn" onclick="copyText('msg-guide',this)">コピー</button>
     </div>
+  </div>
+
+  <!-- ─── GITHUB GUIDE ─── -->
+  <div class="tab" id="tab-github">
+
+    <div style="background:var(--green);color:white;border-radius:var(--radius);padding:20px 24px;margin-bottom:20px">
+      <div style="font-size:11px;letter-spacing:0.1em;color:var(--green-light);margin-bottom:6px;font-family:'DM Sans',sans-serif">GITHUB GUIDE</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:6px">GitHubって何？</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6">エンジニアだけのツールじゃありません。<br>ファイルをチームで管理・共有できる場所です。</div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">一言で言うと</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+        <div style="background:var(--gray-100);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">📁</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">ファイル置き場</div>
+          <div style="font-size:12px;color:var(--gray-500);line-height:1.5">HTMLや文書を<br>まとめて保管</div>
+        </div>
+        <div style="background:var(--gray-100);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">🌐</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">Web公開</div>
+          <div style="font-size:12px;color:var(--gray-500);line-height:1.5">URLでチームに<br>共有できる</div>
+        </div>
+        <div style="background:var(--gray-100);border-radius:var(--radius-sm);padding:14px;text-align:center">
+          <div style="font-size:24px;margin-bottom:6px">📝</div>
+          <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">変更履歴</div>
+          <div style="font-size:12px;color:var(--gray-500);line-height:1.5">いつ誰が何を<br>変えたか残る</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">このページの仕組み</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--green-pale);color:var(--green-mid);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:3px">リポジトリ（pl-team）</div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.5">ファイルをまとめて入れる「フォルダ」のようなもの。<br><code style="font-size:11px;background:var(--gray-100);padding:2px 6px;border-radius:4px">github.com/ny-maeda/pl-team</code> で中身が見られる。</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--green-pale);color:var(--green-mid);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:3px">index.html（このページ）</div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.5">リポジトリの中に入っているファイル。<br>これがブラウザで表示されているページの中身。</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:14px 0">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--green-pale);color:var(--green-mid);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--gray-900);margin-bottom:3px">GitHub Pages（公開機能）</div>
+            <div style="font-size:13px;color:var(--gray-500);line-height:1.5">リポジトリのファイルをWebサイトとして公開する機能。<br>これのおかげで <code style="font-size:11px;background:var(--gray-100);padding:2px 6px;border-radius:4px">ny-maeda.github.io/pl-team/</code> というURLで見られる。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-title">よく使う言葉</div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:start">
+          <span style="font-size:13px;font-weight:700;color:var(--green-mid)">リポジトリ</span>
+          <span style="font-size:13px;color:var(--gray-700);line-height:1.5">プロジェクト単位のフォルダ。pl-teamというリポジトリ＝PL部の情報置き場。</span>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:start">
+          <span style="font-size:13px;font-weight:700;color:var(--green-mid)">コミット</span>
+          <span style="font-size:13px;color:var(--gray-700);line-height:1.5">ファイルの変更を保存すること。「いつ・誰が・何を変えたか」が記録される。</span>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:start">
+          <span style="font-size:13px;font-weight:700;color:var(--green-mid)">ブランチ</span>
+          <span style="font-size:13px;color:var(--gray-700);line-height:1.5">作業の分岐。今は気にしなくてOK。mainブランチ＝本番環境と思えばいい。</span>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;align-items:start">
+          <span style="font-size:13px;font-weight:700;color:var(--green-mid)">GitHub Pages</span>
+          <span style="font-size:13px;color:var(--gray-700);line-height:1.5">リポジトリの中のHTMLをURLで公開できる機能。このページもこれで動いている。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">今後 pl-team に追加できるもの</div>
+      <ul class="insight-list">
+        <li><strong>メンバープロフィール：</strong>新しいメンバーが入ったとき、同じ形式でファイルを追加するだけで増やせる。</li>
+        <li><strong>チームの共有資料：</strong>議事録・ルール・ナレッジなどHTMLやMarkdownで置いておける。</li>
+        <li><strong>更新履歴が残る：</strong>誰がいつ何を変えたかが自動で記録されるので、「いつ更新したっけ？」がなくなる。</li>
+      </ul>
+    </div>
+
   </div>
 
 </div><!-- /content -->
